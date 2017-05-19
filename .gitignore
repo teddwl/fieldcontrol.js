@@ -1,0 +1,8 @@
+.DS_Store
+*.swp
+*.swo
+.npmignore
+dest/rsync_exclude.txt
+dest/deploy.sh
+node_modules
+

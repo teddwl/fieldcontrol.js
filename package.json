@@ -1,0 +1,21 @@
+{
+  "name": "fieldcontrol.js",
+  "version": "0.4.8",
+  "description": "fieldcontrol.js build",
+  "main": "gulpfile.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Theo Fiedler",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/teddwl/fieldcontrol.js"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-concat": "^2.6.1",
+    "gulp-uglify": "^2.1.2"
+  }
+}

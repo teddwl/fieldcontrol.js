@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Fieldcontrol.js - Example Form</title>
+    <link href="https://fonts.googleapis.com/css?family=Hind" rel="stylesheet">
+    <meta content='width=device-width, initial-scale=1' name='viewport'>
+    <meta charset="utf-8" />
+    <style type="text/css">
+        body {
+            font-family: 'Hind', sans-serif;
+        }
+        
+        fieldset {
+            margin: 10px 0;
+            border: 1px solid #999;
+        }
+
+        label {
+            font-size: .9em;
+        }
+        
+        input {
+            border: 1px solid #888;
+        }
+        
+        input[disabled],
+        fieldset[disabled] input {
+            cursor: not-allowed;
+        }
+        
+        input[disabled],
+        input[readonly],
+        fieldset[disabled] input {
+            background-color: #eee;
+            opacity: 1;
+        }
+    </style>
+</head>
+
+<body>
+    <div class='container'>
+        <form action='#' method='POST' id="myForm">
+            <fieldset>
+                <legend>enable or disable a single field w. radio-button</legend>
+                <div>
+                    <label>
+                        <input checked data-disable='stress' name='pressingwater' type='radio'>
+                        nichtdrückendes Wasser
+                    </label>
+                </div>
+                <div>
+                    <label>
+                        <input data-enable='stress' name='pressingwater' type='radio'>
+                        drückendes Wasser
+                    </label>
+                </div>
+                <label>mmWS</label>
+                <input disabled name='stress'>
+            </fieldset>
+            <fieldset>
+                <legend>enable or disable multiple fields with radio buttons</legend>
+                <div>
+                    <label>
+                        <input data-disable='buildtype buildtype2 din' data-enable='wallthickness' name='vattype' type='radio'>
+                        WU-Beton (weiße Wanne)
+                    </label>
+                </div>
+                <label>Wandstärke (mm)</label>
+                <input disabled name='wallthickness'>
+                <div>
+                    <label>
+                        <input data-disable='wallthickness buildtype2' data-enable='buildtype din' name='vattype' type='radio'>
+                        DIN 18195 (schwarze Wanne)
+                    </label>
+                </div>
+                <label>Abdichtungsstoff nach DIN</label>
+                <select name="din" disabled>
+                    <option value="abvasd">12314</option>
+                    <option value="basdsa">12345</option>
+                    <option value="asdadd">23513</option>
+                </select>
+                <br/>
+                <input disabled name='buildtype'>
+                <div>
+                    <label>
+                        <input data-disable='wallthickness buildtype din' data-enable='buildtype2' name='vattype' type='radio'>
+                        DIN 82123 (graue Wanne)
+                    </label>
+                </div>
+                <label>Abdichtungsstoff nach DIN 82123</label>
+                <input disabled name='buildtype2'>
+            </fieldset>
+            <fieldset>
+                <legend>enable single field w. checkbox</legend>
+                <label>
+                    <input data-enable='cavitytype' name='sealing' type='checkbox' value='Yes'>
+                    check to enable 
+                </label>
+                <input disabled name='cavitytype'>
+            </fieldset>
+            <fieldset>
+                <legend>dis- and enable field w. checkbox</legend>
+                <label>
+                    <input data-disable='cavitytype2' data-enable='cavitytype4' name='sealing' type='checkbox' value='Yes'>
+                    just check 
+                </label>
+                <input name='cavitytype2'>
+                <input disabled name='cavitytype4'>
+            </fieldset>
+            <fieldset>
+                <legend>enable or disable different fieldtypes</legend>
+                <label>
+                    <input data-enable='chuck innerdiameter2' data-disable='innerdiameter5' name='casing' type='checkbox' value='Yes'>
+                     Futterrohr
+                </label>
+                <div>
+                    <label>
+                        <input disabled name='chuck' type='radio' value='Wand'>
+                        Wand
+                    </label>
+                </div>
+                <div>
+                    <label>
+                        <input disabled name='chuck' type='radio' value='Bodenplatte'>
+                        Bodenplatte
+                    </label>
+                </div>
+                <div>
+                    <label>
+                        <input disabled name='chuck' type='radio' value='Decke'>
+                        Decke
+                    </label>
+                </div>
+                <label>Innendurchmesser (mm)</label>
+                <input disabled name='innerdiameter2'>
+                <br/>
+                <label>Alternative</label>
+                <input name='innerdiameter5'>
+            </fieldset>
+            <fieldset>
+                <legend>enable or disable using text-input</legend>
+                <label>Type here</label>
+                <input data-enable='nonpressingwater' name='pressingwater' type='text'>
+                <label>then here</label>
+                <input disabled name='nonpressingwater'>
+            </fieldset>
+            <fieldset>
+                <legend>enable or disable using text-input with condition (text should match "special")</legend>
+                <label>Type here</label>
+                <input data-enable='nonpressingwater2' data-condition="special" name='pressingwater' type='text'>
+                <label>then here</label>
+                <input disabled name='nonpressingwater2'>
+            </fieldset>
+            <fieldset>
+                <legend>enable or disable using selects</legend>
+                <select name="cities" data-enable="nonpressingwater3" data-condition="hamburg">
+                    <option value="berlin">Berlin</option>
+                    <option value="munich">Munich</option>
+                    <option value="hamburg">Hamburg</option>
+                </select>
+                <label>enabled if 'hamburg' is selected</label>
+                <input disabled name='nonpressingwater3'>
+            </fieldset>
+        </form>
+    </div>
+    <script src='/fieldcontrol.min.js' type='text/javascript'></script>
+    <script type="text/javascript">
+        window.onload = function() {
+            var formObject = document.getElementById("myForm");
+            if (formObject.length) {
+                new FieldControl(formObject);
+            }
+        }
+    </script>
+</body>
+
+</html>
