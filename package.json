@@ -1,6 +1,6 @@
 {
   "name": "fieldcontrol.js",
-  "version": "0.4.8",
+  "version": "0.4.9",
   "description": "fieldcontrol.js build",
   "main": "gulpfile.js",
   "scripts": {

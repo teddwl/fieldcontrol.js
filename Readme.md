@@ -1,5 +1,5 @@
 # Fieldcontrol.js
-###### Very form element disabled state control without jQuery
+###### form element disabled state control
 
 Fieldcontrol.js allows you to _disable_ or _enable_ html form elements on the clientside in a very simple way.
 Changing _almost\_ any form element may en- or disable multiple other elements through the use of `data`-attributes and consistent form input naming.
