@@ -49,7 +49,7 @@ if (form.length) {
 }
 
 // multiple forms
-forms = document.getElementByTagName("form");
+forms = document.getElementsByTagName("form");
 for (var i = 0; i < forms.length; i++) {    
     new FieldControl(forms[i]);
 }
