@@ -1,4 +1,4 @@
-# Fieldcontrol.js
+# fieldcontrol.js
 ###### form element disabled state control
 
 Fieldcontrol.js allows you to _disable_ or _enable_ html form elements on the clientside in a very simple way.
@@ -40,15 +40,22 @@ You are free to include it in the header instead of above the closing `</body>`-
 Just initialize the plugin passing a `<form/>` DOM-Object. No more javascript needed. You can call the plugin for multiple forms on one page.
 
 ````javascript
+var form;
+
 // one form
-var form = document.getElementById("myForm"); // without jQuery
-var form = $("#myForm");                      // with jQuery
+form = document.getElementById("myForm");
 if (form.length) {
     new FieldControl(form);
 }
 
-// or multiple forms
-var forms = $(".form"); 
+// multiple forms
+forms = document.getElementByTagName("form");
+for (var i = 0; i < forms.length; i++) {    
+    new FieldControl(forms[i]);
+}
+
+// with jQuery
+var forms = $("form"); 
 forms.each(function() {
   new FieldControl($(this));
 })
@@ -56,14 +63,15 @@ forms.each(function() {
 
 The constructor has one required parameter, which is the html form DOM-Object. Obviously it doesn't matter if you fetch it by its `id`, tag-type or any other queryselector.
 
-You may also pass a rudimentary `options` object that can deactivate the `enable` or `disable` feature or change the default selector for these features. In general you'll want to stick to the defaults. 
+You may also pass an `options` object that can deactivate the `enable` or `disable` feature or change the default selector for these features. Usually you'll want to stick to the defaults. 
 
 ````javascript
 var options = {initialize: false, enable: true, disable: true, selector: 'name'};
 new FieldControl(formObject, options);
 ````
 
-I would generally recommended to set the disabled attribute on each field that should initially be disabled, if you can. But if you are dealing with prechecked fields or you simply can not set the disabled attribute because of some lousy templating engine, you can tell fieldcontrol.js to go through your form and it will take care of setting the appropriate disabled states.
+_Note about markup:_
+I recommend to set 'default' `disabled` and `checked` attributes directly in your view. But if you are dealing with dynamically prechecked fields or you simply can not set the disabled attribute because of your templating engine, following might work: The `initialize` option set to true, will make fieldcontrol.js to go through your form and will take care of setting the appropriate disabled states. Unfortunately, this option will not work properly with radio-buttons yet.
 
 ## How it works
 
