@@ -4,5 +4,6 @@
 .npmignore
 dest/rsync_exclude.txt
 dest/deploy.sh
+dest/test.html
 node_modules
 

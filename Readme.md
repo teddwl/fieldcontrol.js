@@ -1,10 +1,10 @@
 # fieldcontrol.js
-###### form element disabled state control
+###### gain control over form elements disabled attribute
 
-Fieldcontrol.js allows you to _disable_ or _enable_ html form elements on the clientside in a very simple way.
-Changing _almost\_ any form element may en- or disable multiple other elements through the use of `data`-attributes and consistent form input naming.
+fieldcontrol.js allows you _disable_ or _enable_ `input` and other form elements on the clientside in a very simple way.<br/>
+*Changing* (almost) any form element may alter the `disabled` attribute for multiple other form elements through the use of `data`-attributes in the controlling element and consistent form input naming.
 
-Check out the [demo](http://fieldcontrol.metheo.io/)
+Check out the [demo](http://fieldcontrol.metheo.io/)!
 
 ## Setup
 
@@ -28,19 +28,22 @@ git clone https://github.com/teddwl/fieldcontrol.js.git
 You only need to include the minified version `./dest/fieldcontrol.min.js`, which is smaller than 1.25kb in size. No dependencies, no jQuery!<br/>
 How you style the disabled state of your form elements is up to you, there is a minimial example in the [demo](http://fieldcontrol.metheo.io/).
 
-You are free to include it in the header instead of above the closing `</body>`-tag. Just make sure you call the plugin **after** loading it.
+Include the script in the header or above the closing `</body>`-tag. Just make sure you call the plugin **after** loading it.
 
 ````html
 <form id="myForm">
-    <!-- fields -->
+	<input data-enable="changefield changeotherfield" data-disable="otherfield" type="checkbox">
+	<input disabled name="changefield">
+	<input disabled name="changeotherfield">
+	<input name="otherfield">
 </form>
 <script src="/path/to/fieldcontrol.min.js" type="text/javascript"></script> 
 ````
 
-Just initialize the plugin passing a `<form/>` DOM-Object. No more javascript needed. You can call the plugin for multiple forms on one page.
+Just initialize the plugin passing a `<form/>` DOM-Object (jQuery objects will work too). No more javascript needed. <br/>You can call the plugin for multiple forms on one page.
 
 ````javascript
-var form;
+var form, forms;
 
 // one form
 form = document.getElementById("myForm");
@@ -55,7 +58,7 @@ for (var i = 0; i < forms.length; i++) {
 }
 
 // with jQuery
-var forms = $("form"); 
+forms = $("form"); 
 forms.each(function() {
   new FieldControl($(this));
 })
@@ -75,7 +78,7 @@ I recommend to set 'default' `disabled` and `checked` attributes directly in you
 
 ## How it works
 
-Fieldcontrol.js is looking for all form elements having a `data-enable` or `data-disable` attribute. It adds an on change listener to those fields and will alter the target inputs' disbled state, depending on the used attributes. The target `name=""` values are set as the `data-enable` or `data-disable` value of the controlling field.
+Fieldcontrol.js is looking for all form elements having a `data-enable` or `data-disable` attribute. It adds an *on change* listener to those elements and will alter the target inputs' disbled state, depending on the used attributes. The target `name=""` values are set as the `data-enable` or `data-disable` value of the controlling element.
 
 In the first example, that is the case for `input[name="changefield"]`. 
 
