@@ -103,6 +103,11 @@ To en- or disable multiple fields simply concatenate your target input field nam
 <input data-enable="changefield" type="text" data-condition="matchtext">
 <input disabled name="changefield">
 ````
+##### enable if a Regex value condition is met
+````html
+<input data-enable="changefield" type="text" data-condition="^[A-z]+$">
+<input disabled name="changefield">
+````
 ##### disable if a value condition is met
 
 ````html
@@ -112,14 +117,17 @@ To en- or disable multiple fields simply concatenate your target input field nam
 ##### Do all this with `<select>`-tags
 
 ````html
-<select name="cities" data-enable="changefield" data-condition="hamburg">
+<select name="cities" data-enable="changefield" data-disable="changeotherfield" data-condition="hamburg">
     <option value="newyork">New York</option>
     <option value="paris">Paris</option>
     <option value="hamburg">Hamburg</option>
 </select>
 <input disabled name='changefield'>
+<input name='changeotherfield'>
+
 ````
-Radio buttons are also supported, find more examples in the [demo](http://fieldcontrol.metheo.io/)!
+Of course that's not everything, find more examples in the [demo](http://fieldcontrol.metheo.io/)!
+
 ##### use a different selector
 
 Instead of targeting form elements `name` attribute, you can choose any attribute name and pass it via the options object when calling the plugin: 
@@ -138,8 +146,10 @@ The corresponding html:
 <input name="otherfield">
 ````
 
+
+_Another note about markup:_
 The order or nesting of your form fields does not affect how fieldcontrol.js works, so you are free to arrange your form in any way you want.
-The FieldControl function though, needs to be called independently for every form you want to use it.
+The `new FieldControl()` constructor though, needs to be called independently for every form you want to use.
 
 ## Features
 
@@ -163,9 +173,7 @@ The FieldControl function though, needs to be called independently for every for
 |------------------|---------------------------------------------------------------------------|---------|
 | `data-enable`    | name value(s) of target form elements<br/> to be enabled (seperated by space)  | "fieldname1 fieldname2" |
 | `data-disable`   | name value(s) of target form elements<br/> to be disabled (seperated by space) | "fieldname1 fieldname2" |
-| `data-condition` | value that should be matched by the<br/> control-input (in general a string or integer, without spaces)* | "shouldmatch" |
-
-\* Regular expressions will be supported in a future update. 
+| `data-condition` | Regular expression or string value that should be matched by the<br/> control-input (in general a string or integer, without spaces).<br /> Anything that goes into the Javascript `new Regex()` constructor is valid. | "shouldmatch" |
 
 
 #### Supported tags and attributes:
@@ -179,5 +187,4 @@ The FieldControl function though, needs to be called independently for every for
 
 ## outlook
 
-* support regex in `data-condition`
 * support multiple inputs controlling one target field

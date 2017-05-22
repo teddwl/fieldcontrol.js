@@ -44,9 +44,7 @@ FieldControl.prototype.handleControl = function(identifiers, input, type) {
         conditionMet;
 
     if (!isCheckable) {
-      conditionMet = typeof input.dataset.condition != 'undefined' ? 
-                         input.value == input.dataset.condition : 
-                         input.value != '';
+      conditionMet = that.checkCondition(input);
     } else {
       conditionMet = input.checked;
     }
@@ -62,6 +60,23 @@ FieldControl.prototype.updateState = function(targetFieldName, result, type) {
     targets.forEach(function(target) {
         target.disabled = (type == "enable") ? !result : result;
     })
+}
+
+FieldControl.prototype.checkCondition = function(input) {
+  var that = this;
+  var conditionSet = typeof input.dataset.condition != 'undefined';
+
+  return (conditionSet) ? that.evaluateCondition(input) : input.value != '';
+}
+
+FieldControl.prototype.evaluateCondition = function(input) {
+    var that = this;
+    try {
+        var expression = new RegExp(input.dataset.condition);
+        return expression.test(input.value);
+    } catch(e) {
+        return input.value == input.dataset.condition;
+    }
 }
 
 function addEventHandler(elem, eventType, handler) {

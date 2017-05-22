@@ -169,6 +169,16 @@
                     <input disabled name='nonpressingwater2'>
                 </fieldset>
                 <fieldset>
+                    <legend>enable or disable using text-input with regex condition "/^[A-z]+$/" </legend>
+                    <label>Type here</label>
+                    <input data-enable='nonpressingwater5' data-condition="^[A-z]+$" name='pressingwater' type='text'>
+                    <br />
+                    <small>The regex test will match a string of _only_ alphabetic letters.</small>
+                    <br />
+                    <label>then here</label>
+                    <input disabled name='nonpressingwater5'>
+                </fieldset>
+                <fieldset>
                     <legend>enable or disable using selects</legend>
                     <select name="cities" data-enable="nonpressingwater3" data-condition="hamburg">
                         <option value="berlin">Berlin</option>
