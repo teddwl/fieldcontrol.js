@@ -12,17 +12,19 @@ var FieldControl = function(form, options) {
     } : options;
 
     if (that.options.enable) {
-        that.enablers.forEach(function(input) {
+        for (var i = 0; i < that.enablers.length; i++) {
+            var input = that.enablers[i];
             var identifiers = input.dataset.enable.split(" ");
             that.strayHandlers(input, identifiers, "enable");
-        })
+        }
     }
 
     if (that.options.disable) {
-        that.disablers.forEach(function(input) {
+        for (var i = 0; i < that.disablers.length; i++) {
+            var input = that.disablers[i];
             var identifiers = input.dataset.disable.split(" ");
             that.strayHandlers(input, identifiers, "disable");
-        })
+        }
     }
 }
 
@@ -49,17 +51,17 @@ FieldControl.prototype.handleControl = function(identifiers, input, type) {
       conditionMet = input.checked;
     }
 
-    identifiers.forEach(function(targetFieldName) {
-        that.updateState(targetFieldName, conditionMet, type);
-    })
+    for (var i = 0; i < identifiers.length; i++) {
+        that.updateState(identifiers[i], conditionMet, type);
+    }
 }
 
 FieldControl.prototype.updateState = function(targetFieldName, result, type) {
     var that = this;
     var targets = that.form.querySelectorAll("["+that.options.selector+"='" + targetFieldName + "']");
-    targets.forEach(function(target) {
-        target.disabled = (type == "enable") ? !result : result;
-    })
+    for (var i = 0; i < targets.length; i++) {
+        targets[i].disabled = (type == "enable") ? !result : result;
+    }
 }
 
 FieldControl.prototype.checkCondition = function(input) {
