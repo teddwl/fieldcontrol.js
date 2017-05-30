@@ -66,7 +66,7 @@ FieldControl.prototype.updateState = function(targetFieldName, result, type) {
 
 FieldControl.prototype.checkCondition = function(input) {
   var that = this;
-  var conditionSet = typeof input.getAttribute('data-condition') != 'undefined';
+  var conditionSet = input.getAttribute('data-condition') != null;
 
   return (conditionSet) ? that.evaluateCondition(input) : input.value != '';
 }
