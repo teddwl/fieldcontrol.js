@@ -14,7 +14,7 @@ var FieldControl = function(form, options) {
     if (that.options.enable) {
         for (var i = 0; i < that.enablers.length; i++) {
             var input = that.enablers[i];
-            var identifiers = input.dataset.enable.split(" ");
+            var identifiers = input.getAttribute('data-enable').split(" ");
             that.strayHandlers(input, identifiers, "enable");
         }
     }
@@ -22,7 +22,7 @@ var FieldControl = function(form, options) {
     if (that.options.disable) {
         for (var i = 0; i < that.disablers.length; i++) {
             var input = that.disablers[i];
-            var identifiers = input.dataset.disable.split(" ");
+            var identifiers = input.getAttribute('data-disable').split(" ");
             that.strayHandlers(input, identifiers, "disable");
         }
     }
@@ -66,18 +66,19 @@ FieldControl.prototype.updateState = function(targetFieldName, result, type) {
 
 FieldControl.prototype.checkCondition = function(input) {
   var that = this;
-  var conditionSet = typeof input.dataset.condition != 'undefined';
+  var conditionSet = typeof input.getAttribute('data-condition') != 'undefined';
 
   return (conditionSet) ? that.evaluateCondition(input) : input.value != '';
 }
 
 FieldControl.prototype.evaluateCondition = function(input) {
     var that = this;
+    var matchstr = input.getAttribute('data-condition');
     try {
-        var expression = new RegExp(input.dataset.condition);
+        var expression = new RegExp(matchstr);
         return expression.test(input.value);
     } catch(e) {
-        return input.value == input.dataset.condition;
+        return input.value == matchstr;
     }
 }
 
