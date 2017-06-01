@@ -191,7 +191,7 @@
             </form>
         </div>
         <div class='column'>
-            <h4>Form initialization and custom selector</h4>
+            <h4>Form initialization set to true and custom selector</h4>
             <form action='#' method='POST' id="myForm2">
                 <fieldset>
                     <legend>enable or disable a single field w. radio-button</legend>
@@ -212,36 +212,7 @@
                 </fieldset>
                 <fieldset>
                     <legend>enable or disable multiple fields with radio buttons</legend>
-                    <div>
-                        <label>
-                            <input data-disable='buildtype buildtype2 din' data-enable='wallthickness' data-group='vattype' name='vattype' type='radio'>
-                            WU-Beton (weiße Wanne)
-                        </label>
-                    </div>
-                    <label>Wandstärke (mm)</label>
-                    <input data-group='wallthickness'>
-                    <div>
-                        <label>
-                            <input data-disable='wallthickness buildtype2' data-enable='buildtype din' data-group='vattype' name='vattype' type='radio'>
-                            DIN 18195 (schwarze Wanne)
-                        </label>
-                    </div>
-                    <label>Abdichtungsstoff nach DIN</label>
-                    <select data-group="din">
-                        <option value="abvasd">12314</option>
-                        <option value="basdsa">12345</option>
-                        <option value="asdadd">23513</option>
-                    </select>
-                    <br/>
-                    <input data-group='buildtype'>
-                    <div>
-                        <label>
-                            <input checked data-disable='wallthickness buildtype din' data-enable='buildtype2' data-group='vattype' name='vattype' type='radio'>
-                            DIN 82123 (graue Wanne)
-                        </label>
-                    </div>
-                    <label>Abdichtungsstoff nach DIN 82123</label>
-                    <input data-group='buildtype2'>
+                    <label>Form initialization will not work for radio-button groups yet</label>
                 </fieldset>
                 <fieldset>
                     <legend>enable single field w. checkbox</legend>
@@ -305,6 +276,16 @@
                     <input data-group='nonpressingwater2'>
                 </fieldset>
                 <fieldset>
+                    <legend>enable or disable using text-input with regex condition "/^[A-z]+$/" </legend>
+                    <label>Type here</label>
+                    <input data-enable='nonpressingwater5' data-condition="^[A-z]+$" data-group='pressingwater' type='text' value="abcde333">
+                    <br />
+                    <small>The regex test will match a string of _only_ alphabetic letters.</small>
+                    <br />
+                    <label>then here</label>
+                    <input disabled data-group='nonpressingwater5'>
+                </fieldset>
+                <fieldset>
                     <legend>enable or disable using selects</legend>
                     <select data-group="cities" data-enable="nonpressingwater3" data-condition="hamburg">
                         <option value="berlin">Berlin</option>
@@ -322,14 +303,12 @@
         window.onload = function() {
             var formObject = document.getElementById("myForm");
             if (formObject.length) {
-                new FieldControl(formObject);
+                new FieldControl(formObject, {initialize: false});
             }
             formObject = document.getElementById("myForm2");
             if (formObject.length) {
                 var options = {
                     initialize: true,
-                    enable: true,
-                    disable: true,
                     selector: 'data-group'
                 };
                 new FieldControl(formObject, options);

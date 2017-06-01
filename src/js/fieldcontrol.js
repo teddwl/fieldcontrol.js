@@ -1,30 +1,27 @@
 var FieldControl = function(form, options) {
     var that = this;
+    var defaults = {
+        initialize: false,
+        selector: 'name' 
+    }
     that.form = form.jquery ? form[0] : form;
     that.enablers = that.form.querySelectorAll("[data-enable]");
     that.disablers = that.form.querySelectorAll("[data-disable]");
     that.checktypes = ["checkbox", "radio"];
-    that.options = (typeof options === "undefined") ? {
-        enable: true,
-        disable: true,
-        initialize: false,
-        selector: 'name' 
-    } : options;
+    that.options = (typeof options === "undefined") ? 
+                   defaults : 
+                   Object.assign(defaults, options);
 
-    if (that.options.enable) {
-        for (var i = 0; i < that.enablers.length; i++) {
-            var input = that.enablers[i];
-            var identifiers = input.getAttribute('data-enable').split(" ");
-            that.strayHandlers(input, identifiers, "enable");
-        }
-    }
+    that.start(that.enablers, "enable");
+    that.start(that.disablers, "disable");
+}
 
-    if (that.options.disable) {
-        for (var i = 0; i < that.disablers.length; i++) {
-            var input = that.disablers[i];
-            var identifiers = input.getAttribute('data-disable').split(" ");
-            that.strayHandlers(input, identifiers, "disable");
-        }
+FieldControl.prototype.start = function(list, feature) {
+    var that = this;
+    for (var i = 0; i < list.length; i++) {
+        var input = list[i];
+        var identifiers = input.getAttribute('data-' + feature).split(" ");
+        that.strayHandlers(input, identifiers, feature);
     }
 }
 
@@ -89,3 +86,30 @@ function addEventHandler(elem, eventType, handler) {
         elem.attachEvent("on" + eventType, handler);
     }
 }
+
+// Polyfill from mdn
+// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/assign#Polyfill
+if (typeof Object.assign != 'function') {
+  Object.assign = function(target, varArgs) {
+    'use strict';
+    if (target == null) { 
+      throw new TypeError('Cannot convert undefined or null to object');
+    }
+
+    var to = Object(target);
+
+    for (var index = 1; index < arguments.length; index++) {
+      var nextSource = arguments[index];
+
+      if (nextSource != null) { 
+        for (var nextKey in nextSource) {
+          if (Object.prototype.hasOwnProperty.call(nextSource, nextKey)) {
+            to[nextKey] = nextSource[nextKey];
+          }
+        }
+      }
+    }
+    return to;
+  };
+}
+

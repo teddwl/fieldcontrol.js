@@ -66,10 +66,8 @@ forms.each(function() {
 
 The constructor has one required parameter, which is the html form DOM-Object. Obviously it doesn't matter if you fetch it by its `id`, tag-type or any other queryselector.
 
-You may also pass an `options` object that can deactivate the `enable` or `disable` feature or change the default selector for these features. Usually you'll want to stick to the defaults. 
-
 ````javascript
-var options = {initialize: false, enable: true, disable: true, selector: 'name'};
+var options = {initialize: false, selector: 'name'};
 new FieldControl(formObject, options);
 ````
 
@@ -158,8 +156,6 @@ The `new FieldControl()` constructor though, needs to be called independently fo
 
 |  key       | type     |  default value       | What it does                       |
 |------------|---------|-----------------------|------------------------------------|
-| enable     | boolean | true                  | Enables the `data-enable` feature  |
-| disable    | boolean | true                  | Enables the `data-disable` feature |
 | initialize | boolean | false                 | defines if the plugin features should run on load * |
 | selector   | string  | "name"                | defines what attribute is used to select form elements |
 
